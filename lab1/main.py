@@ -90,11 +90,7 @@ def tone(f, t, waveform=WaveformEnum.harmonic, fs=44100):
 def attenuation(fs, t, db):
     times = 10 ** (db / 20)
     a = times ** (1 / (t * fs))
-    result = np.zeros(round(t * fs))
-    k = 1
-    for i in range(round(t * fs)):
-        result[i] = k
-        k *= a
+    result = np.array([1 * (a ** i) for i in range(round(t * fs))])
     return result
 
 
