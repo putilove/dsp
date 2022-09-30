@@ -47,9 +47,8 @@ def my_dtft(x, fs, f):
 def draw_dftf(x, fs):
     arg = np.arange(40, 500)
     a = my_dtft(x, fs, arg)
-    m = np.arange(40, 500, 1)
     plt.figure('dft')
-    plt.plot(m, a)
+    plt.plot(arg, a)
     plt.show()
 
 
@@ -111,7 +110,7 @@ def main():
 
     #print(test_acf(x))
     #draw_acf(x, 2000)
-    #draw_dftf(x, fs)
+    draw_dftf(x, fs)
     #google_reaper(x, fs)
 
     k = 0.5
