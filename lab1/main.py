@@ -72,7 +72,7 @@ def get_harmonic_coefficient():
 
 
 def tone(f, t, waveform=WaveformEnum.harmonic, fs=44100):
-    time = np.linspace(0, 1, fs)
+    time = np.linspace(0, t, round(t*fs))
     omega = 2 * pi * f
     x = np.array([])
     if waveform == WaveformEnum.harmonic:
@@ -84,17 +84,7 @@ def tone(f, t, waveform=WaveformEnum.harmonic, fs=44100):
     elif waveform == WaveformEnum.saw:
         x = signal.sawtooth(omega * time)
 
-    integer = int(t)
-    if integer == 0:
-        result = x[:round(fs*t)]
-        return result
-    result = x
-    for i in range(integer-1):
-        result = np.concatenate((result, x))
-    if t-integer == 0:
-        return result
-    result = np.concatenate((result, x[:round(fs*(t-integer))]))
-    return result
+    return x
 
 
 def attenuation(fs, t, db):
