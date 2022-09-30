@@ -4,8 +4,6 @@ from scipy import signal
 from waveformenum import WaveformEnum
 from numpy import pi
 from key_number import KeyNumber
-import matplotlib.pyplot as plt
-
 
 
 def note_to_frequency(note):
