@@ -12,7 +12,7 @@ def robotization(x, fs, time, name_window, overlap_time):
     noverlap = round(overlap_time * size)
     window = get_window(name_window, size)
     f, t, zxx = stft(x, fs, window=window, nperseg=size, noverlap=noverlap)
-    res = np.real(zxx) + 0.j
+    res = np.abs(zxx)
     _, res = istft(res, fs, window=window, nperseg=size, noverlap=noverlap)
     return f, t, zxx, res
 
