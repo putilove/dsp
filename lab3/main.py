@@ -75,23 +75,27 @@ def main():
     x /= max(abs(x.min()), abs(x.max()))
     k = 0.4
 
-    shifted, sig = shift_v3(x, fs, 0.02, 0)
-    x += k*shifted
-    plt.figure('signal 1')
-    plt.plot(sig)
+    x += k*shift(x, fs, 0.02, 0.01, 3)
+    x += k * shift(x, fs, 0.1, 0.01, 4)
+    x += k * shift(x, fs, 0.2, 0.01, 5)
 
-    shifted, sig = shift_v3(x, fs, 0.1, 1)
-    x += k*shifted
-    plt.figure('signal 2')
-    plt.plot(sig)
+    #shifted, sig = shift_v3(x, fs, 0.02, 0)
+    #x += k*shifted
+    #plt.figure('signal 1')
+    #plt.plot(sig)
 
-    shifted, sig = shift_v3(x, fs, 0.2, 2)
-    x += k * shifted
-    plt.figure('signal 3')
-    plt.plot(sig)
+    #shifted, sig = shift_v3(x, fs, 0.1, 1)
+    #x += k*shifted
+    #plt.figure('signal 2')
+    #plt.plot(sig)
+
+    #shifted, sig = shift_v3(x, fs, 0.2, 2)
+    #x += k * shifted
+    #plt.figure('signal 3')
+    #plt.plot(sig)
 
     x /= max(abs(x.max()), abs(x.min()))
-    write(f'output_test.wav', fs, x)
+    write(f'output.wav', fs, x)
     plt.show()
 
 
