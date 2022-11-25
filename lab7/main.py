@@ -43,7 +43,10 @@ def main():
     plt.figure('BandpassReconstructed')
     plt.plot(first_res)
 
-    first_res = np.concatenate((first_res[10:], np.zeros(10)))
+    m = 20
+    shift = int(m/2)
+
+    first_res = np.concatenate((first_res[shift:], np.zeros(shift)))
     print('6lab: ', mse(clear_signal, first_res))
 
     signal = np.load('4.npy')
@@ -51,21 +54,21 @@ def main():
     plt.figure('Input')
     plt.plot(signal)
 
-    m = 20
-    r_y = acf(signal[1000:], adjusted=True, nlags=m)
+    r_y = acf(signal[1000:], adjusted=True, nlags=m)*np.var(signal[1000:])
     d = np.var(signal[:1000])
 
     r_xy = r_y.copy()
     r_xy[0] -= d
 
     A = np.fromfunction(lambda i, j: r_y[np.abs(i.astype(int)-j.astype(int))], (len(r_y), len(r_y)), dtype=float)
-    b = np.array([r_xy[i] for i in range(len(r_xy))])
+    b = np.array([r_xy[np.abs(i-shift)] for i in range(len(r_xy))])
     x = np.linalg.solve(A, b)
 
     plt.figure('x')
     plt.plot(x)
 
     result = sp.signal.convolve(signal, x)
+    result = np.concatenate((result[shift:], np.zeros(shift)))
 
     print('7lab: ', mse(clear_signal, result))
 
