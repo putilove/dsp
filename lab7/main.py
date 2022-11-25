@@ -62,12 +62,12 @@ def main():
 
     A = np.fromfunction(lambda i, j: r_y[np.abs(i.astype(int)-j.astype(int))], (len(r_y), len(r_y)), dtype=float)
     b = np.array([r_xy[np.abs(i-shift)] for i in range(len(r_xy))])
-    x = np.linalg.solve(A, b)
+    h = np.linalg.solve(A, b)
 
-    plt.figure('x')
-    plt.plot(x)
+    plt.figure('h')
+    plt.plot(h)
 
-    result = sp.signal.convolve(signal, x)
+    result = sp.signal.convolve(signal, h)
     result = np.concatenate((result[shift:], np.zeros(shift)))
 
     print('7lab: ', mse(clear_signal, result))
