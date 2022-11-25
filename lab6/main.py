@@ -34,6 +34,8 @@ def main():
 
     result = signal.convolve(x, h)
 
+    np.save('res.npy', result)
+
     plt.figure("reconstructed")
     plt.plot(result)
 
